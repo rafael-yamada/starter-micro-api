@@ -13,7 +13,7 @@ http.createServer(function (original_request, response) {
 	  form: {
 	    'token': q.token,
 	    'cnpj': q.cnpj,
-	    'periodos': q.periodos'
+	    'periodos': q.periodos
 	  }
 	};
 	request(options, function (error, response) {
