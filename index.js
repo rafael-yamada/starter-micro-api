@@ -1,7 +1,7 @@
 var http = require('http');
 var url = require('url');
 
-http.createServer(function (original_request, response) {
+http.createServer(function (original_request, final_response) {
     var q = url.parse(original_request.url, true).query;
     console.log(`Just got a request at ${original_request.url}!`)
 	
@@ -22,8 +22,8 @@ http.createServer(function (original_request, response) {
 	  if (error) throw new Error(error);
 		
 	  console.log(response.body);
-	  response.write(response.body);
-	  response.end();
+	  final_response.write(response.body);
+	  final_response.end();
 	});
 	
     //response.write('Yo!');
