@@ -1,5 +1,6 @@
 var http = require('http');
 http.createServer(function (original_request, response) {
+    var q = url.parse(original_request.url, true).query;
     console.log(`Just got a request at ${original_request.url}!`)
 	
 	var request = require('request');
@@ -10,14 +11,17 @@ http.createServer(function (original_request, response) {
 	    'Content-Type': 'application/x-www-form-urlencoded'
 	  },
 	  form: {
-	    'token': 'v9E6v_ecpZQ4VAapkca4bLcHfg5aK1J-z_x6I4zQ',
-	    'cnpj': '43039407000135',
-	    'periodos': '202212'
+	    'token': q.token,
+	    'cnpj': q.cnpj,
+	    'periodos': q.periodos'
 	  }
 	};
 	request(options, function (error, response) {
 	  if (error) throw new Error(error);
+		
 	  console.log(response.body);
+	  response.write(response.body);
+	  response.end();
 	});
 	
     //response.write('Yo!');
