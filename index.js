@@ -5,11 +5,11 @@ http.createServer(function (original_request, final_response) {
 	var q = url.parse(original_request.url, true).query;
 	console.log(`Just got a request at ${original_request.url}!`)
 	
-	var url = "";
+	var url_req = "";
 	var form = {};
 	
 	if (q.servico === "das") {
-		url = 'https://api.infosimples.com/api/v2/consultas/receita-federal/simples-das';
+		url_req = 'https://api.infosimples.com/api/v2/consultas/receita-federal/simples-das';
 		form = {
 		    'token': q.token,
 		    'cnpj': q.cnpj,
@@ -17,7 +17,7 @@ http.createServer(function (original_request, final_response) {
 		}
 	}
 	else if (q.servico === "parcelas") {
-		url = 'https://api.infosimples.com/api/v2/consultas/receita-federal/simples/mei/eg';
+		url_req = 'https://api.infosimples.com/api/v2/consultas/receita-federal/simples/mei/eg';
 		form = {
 			'token': q.token,
 		    	'cnpj': q.cnpj,
@@ -29,7 +29,7 @@ http.createServer(function (original_request, final_response) {
 	var request = require('request');
 	var options = {
 	  'method': 'POST',
-	  'url': url,
+	  'url': url_req,
 	  'headers': {
 	    'Content-Type': 'application/x-www-form-urlencoded'
 	  },
